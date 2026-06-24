@@ -156,6 +156,9 @@ downloads/
 *.ytdl
 *.temp
 ytdl_version.py
+bin/
+*cookies.txt
+*.txt
 
 # Test files
 test_*.py

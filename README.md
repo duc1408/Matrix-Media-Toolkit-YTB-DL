@@ -1,358 +1,130 @@
-<div align="center">
-
-# ytdl - Interactive YouTube Downloader
-
-[![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![PyPI version](https://img.shields.io/pypi/v/ytdl-interactive.svg)](https://pypi.org/project/ytdl-interactive/)
-[![Downloads](https://img.shields.io/pypi/dm/ytdl-interactive.svg)](https://pypi.org/project/ytdl-interactive/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/abd3lraouf/ytdl.svg)](https://github.com/abd3lraouf/ytdl/stargazers)
-[![CI](https://img.shields.io/github/actions/workflow/status/abd3lraouf/ytdl/ci.yml?branch=main&label=CI)](https://github.com/abd3lraouf/ytdl/actions)
-[![yt-dlp](https://img.shields.io/badge/powered%20by-yt--dlp-red.svg)](https://github.com/yt-dlp/yt-dlp)
-
-**A feature-rich, interactive CLI for downloading YouTube videos and playlists with ease.**
-
-Built on top of [yt-dlp](https://github.com/yt-dlp/yt-dlp) with an intuitive menu system powered by [questionary](https://github.com/tmbo/questionary).
-
-[Features](#-features) • [Installation](#-installation) • [Quick Start](#-quick-start) • [Documentation](#-usage-guide) • [Contributing](CONTRIBUTING.md)
-
-</div>
-
-## ✨ Features
-
-- 🎯 **Interactive Menu System** - Easy-to-use interface with questionary
-- 📋 **Playlist Auto-Detection** - Automatically detects and organizes playlists
-- ⚡ **Quick Default Download** - One-click download with optimal settings
-- 🎨 **Advanced Configuration** - Fine-tune every aspect of your downloads
-- 📁 **Smart Naming Templates** - Multiple presets + custom template support
-- 🎵 **Audio Extraction** - Download and convert to MP3
-- 🖼️ **Rich Post-Processing** - Thumbnails, subtitles, metadata embedding
-- 🚀 **SponsorBlock Integration** - Automatically remove sponsors and ads
-- 🌍 **Geo-Bypass & Proxy Support** - Download region-restricted content
-- 📊 **Real-time Progress** - Live download progress and speed display
-
-## 📦 Installation
-
-### From PyPI (Recommended)
-
-```bash
-pip install ytdl-interactive
-```
-
-### From Source
-
-```bash
-# Clone the repository
-git clone https://github.com/abd3lraouf/ytdl.git
-cd ytdl
-
-# Install in development mode
-pip install -e .
-```
-
-### Requirements
-
-- Python 3.9 or higher
-- FFmpeg (for video/audio processing)
-
-#### Installing FFmpeg
-
-**macOS (Homebrew):**
-```bash
-brew install ffmpeg
-```
-
-**Ubuntu/Debian:**
-```bash
-sudo apt update
-sudo apt install ffmpeg
-```
-
-**Windows (Chocolatey):**
-```bash
-choco install ffmpeg
-```
-
-Or download from [ffmpeg.org](https://ffmpeg.org/download.html)
-
-## 🚀 Quick Start
-
-### Basic Usage
-
-```bash
-# Download a single video
-ytdl https://www.youtube.com/watch?v=dQw4w9WgXcQ
-
-# Download a playlist
-ytdl "https://www.youtube.com/playlist?list=PLxxxxxx"
-
-# Download from a channel
-ytdl https://www.youtube.com/@channelname
-```
-
-### Command-line Options
-
-```bash
-ytdl [URL]                    # Start interactive mode with URL
-ytdl --version                # Show version information
-ytdl --help                   # Display help message
-```
-
-## 📖 Usage Guide
-
-### Main Menu
-
-After providing a URL, you'll see the main menu:
-
-```
-1. Quick Default Download (Recommended)
-   └─ Downloads with optimal settings:
-      - Best quality video + audio
-      - Saved to ./downloads/
-      - Auto-organized playlists
-
-2. Advanced Download Settings
-   └─ Customize every aspect:
-      - Format selection
-      - Output paths and naming
-      - Post-processing options
-      - Network settings
-
-3. Exit
-```
-
-### Quick Default Download
-
-The quickest way to download with optimal settings:
-
-- **Format:** Best quality video + audio (automatically merged)
-- **Output:** `./downloads/`
-- **Single videos:** `Title.ext`
-- **Playlists:** `PlaylistName/001 - VideoTitle.ext`
-
-Example output structure:
-```
-downloads/
-├── My Awesome Playlist/
-│   ├── 001 - First Video.mp4
-│   ├── 002 - Second Video.mp4
-│   └── 003 - Third Video.mp4
-└── Single Video Title.mp4
-```
-
-### Advanced Settings
-
-#### 1. Download Type/Format
-
-- **Video (Best Quality)** - `bestvideo*+bestaudio/best`
-- **Audio Only (MP3)** - Extracts and converts to MP3 (192 kbps)
-- **List Formats** - View all available formats and select custom format codes
-
-#### 2. Output Path & Naming
-
-**Preset Templates:**
-
-| Template | Format | Example |
-|----------|--------|---------|
-| **Default** | `%(title)s.%(ext)s` | `My Video.mp4` |
-| **Rich Metadata** | `%(upload_date)s - %(channel)s - %(title)s.%(ext)s` | `20231215 - Channel Name - My Video.mp4` |
-| **Minimalist** | `%(id)s.%(ext)s` | `dQw4w9WgXcQ.mp4` |
-| **Custom** | _Your template_ | Define your own! |
-
-**Playlist Auto-Organization:**
-All templates automatically organize playlists into subfolders with zero-padded indices.
-
-**Custom Template Variables:**
-```
-%(title)s          - Video title
-%(id)s             - Video ID
-%(ext)s            - File extension
-%(upload_date)s    - Upload date (YYYYMMDD)
-%(channel)s        - Channel name
-%(uploader)s       - Uploader name
-%(playlist)s       - Playlist name
-%(playlist_index)s - Video index in playlist
-%(duration)s       - Video duration
-%(view_count)s     - View count
-```
-
-#### 3. Post-Processing Options
-
-- **Embed Thumbnail** - Embed video thumbnail in the file
-- **Embed Subtitles** - Download and embed subtitles (English/Arabic)
-- **Add Metadata** - Add rich metadata to the file
-- **SponsorBlock** - Automatically remove sponsor segments and ads
-
-#### 4. Networking Options
-
-- **Proxy Support** - Route downloads through a proxy
-  ```
-  http://proxy.example.com:8080
-  socks5://proxy.example.com:1080
-  ```
-- **Geo-Bypass** - Bypass geographic restrictions
-
-## 💡 Examples
-
-### Download a single video with defaults
-```bash
-ytdl https://www.youtube.com/watch?v=dQw4w9WgXcQ
-# Select: 1. Quick Default Download
-```
-
-### Download playlist as MP3s
-```bash
-ytdl "https://www.youtube.com/playlist?list=PLxxxxxx"
-# Select: 2. Advanced Settings
-# → Select Download Type → Audio Only (MP3)
-# → Start Download
-```
-
-### Custom output with metadata
-```bash
-ytdl https://www.youtube.com/watch?v=VIDEO_ID
-# Select: 2. Advanced Settings
-# → Output Path → Select "Rich Metadata"
-# → Post-Processing → Check all options
-# → Start Download
-```
-
-### Download with proxy
-```bash
-ytdl https://www.youtube.com/watch?v=VIDEO_ID
-# Select: 2. Advanced Settings
-# → Networking → Enter proxy URL
-# → Start Download
-```
-
-## 🏗️ Project Structure
-
-```
-ytdl/
-├── ytdl.py              # Main application
-├── pyproject.toml       # Package configuration
-├── requirements.txt     # Dependencies
-├── README.md            # This file
-├── LICENSE              # MIT License
-└── .gitignore          # Git ignore rules
-```
-
-## 🤖 Automated Releases
-
-This project uses automated versioning and CI/CD:
-
-- **Automatic versioning** via `setuptools_scm` (based on git tags)
-- **Automated PyPI publishing** on new releases
-- **CI testing** on all PRs and pushes
-- **Release drafts** auto-generated from commits
-
-### Creating a New Release
-
-1. Go to **Actions** → **Bump Version** → **Run workflow**
-2. Select version type (patch/minor/major)
-3. Workflow automatically:
-   - Creates git tag
-   - Generates changelog
-   - Creates GitHub release
-   - Publishes to PyPI
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed release process.
-
-## 🛠️ Development
-
-### Setup Development Environment
-
-```bash
-# Clone repository
-git clone https://github.com/abd3lraouf/ytdl.git
-cd ytdl
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install in development mode with dev dependencies
-pip install -e ".[dev]"
-```
-
-### Code Structure
-
-```python
-# Main components:
-DownloadConfig          # Configuration container
-progress_hook()         # Real-time download progress
-postprocessor_hook()    # Post-processing status
-detect_playlist()       # Playlist detection
-execute_download()      # Download execution
-show_main_menu()        # Interactive menu system
-```
-
-### Running Tests
-
-```bash
-# Install dev dependencies
-pip install -e ".[dev]"
-
-# Run tests (when available)
-pytest
-
-# Code formatting
-black ytdl.py
-
-# Type checking
-mypy ytdl.py
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Guidelines
-
-- Follow PEP 8 style guidelines
-- Add comments for complex logic
-- Update README for new features
-- Test thoroughly before submitting
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [yt-dlp](https://github.com/yt-dlp/yt-dlp) - The powerful downloader this tool is built upon
-- [questionary](https://github.com/tmbo/questionary) - Beautiful interactive prompts
-- All contributors and users of this project
-
-## ⚠️ Disclaimer
-
-This tool is for personal use only. Please respect copyright laws and YouTube's Terms of Service. Only download content you have permission to download.
-
-## 🐛 Bug Reports & Feature Requests
-
-Found a bug or have a feature request? Please [open an issue](https://github.com/abd3lraouf/ytdl/issues) on GitHub.
-
-## 📮 Contact
-
-- GitHub: [@abd3lraouf](https://github.com/abd3lraouf)
-- Issues: [GitHub Issues](https://github.com/abd3lraouf/ytdl/issues)
-
-## 🗺️ Roadmap
-
-- [ ] Configuration file support (~/.ytdlrc)
-- [ ] Download queue management
-- [ ] Resume interrupted downloads
-- [ ] Batch download from file
-- [ ] GUI wrapper (tkinter/PyQt)
-- [ ] Docker support
-- [ ] Download scheduler
+# Matrix Media Toolkit - YTB-DL - Trình tải YouTube Siêu Tốc & Đa Luồng
+
+Đây là phiên bản nâng cấp toàn diện từ dự án gốc, chuyển đổi thành một công cụ tải video/audio YouTube siêu nhanh bằng Python (tên mới: **Matrix Media Toolkit - YTB-DL**), tích hợp trình tăng tốc **aria2c**, xử lý song song đa luồng và cung cấp giao diện đồ họa **Desktop GUI** cực đẹp.
+
+## 🚀 Các tính năng nâng cấp nổi bật
+
+1. **Giao diện Desktop Đồ họa (GUI) Hiện đại**:
+   - Giao diện tối chuyên nghiệp (Dark Mode Flat Design) viết bằng Tkinter thuần, mở nhanh lập tức và không có bất cứ lỗi thư viện nào.
+   - Cơ chế chạy ngầm (Threading) chống đơ ứng dụng khi tải các danh sách phát dài.
+   - Nạp trực tiếp tệp `.txt` hoặc Playlist trực quan qua hộp thoại duyệt file Windows.
+2. **Bộ tăng tốc tải xuống aria2c (Lõi nâng cấp)**:
+   - Tích hợp trực tiếp công cụ `aria2c` vào lõi tải của phần mềm.
+   - Cấu hình mở tối đa **16 kết nối đồng thời (connections) trên mỗi tệp tin**, chia nhỏ dữ liệu tải song song giúp vắt kiệt băng thông mạng và rút ngắn thời gian tải tối đa.
+3. **Đa luồng tải Playlist & Hàng loạt (Concurrent Downloads)**:
+   - Cho phép nhập vào một tệp văn bản `.txt` chứa danh sách link hoặc một link Playlist.
+   - Sử dụng thư viện `ThreadPoolExecutor` của Python để tải song song nhiều video cùng lúc (mặc định tải 3 video song song, cấu hình tùy ý) thay vì phải đợi tải xong từng cái.
+4. **Cơ chế tránh bóp băng thông mới nhất (Bypass Throttling)**:
+   - Sử dụng các tham số mới nhất của API `yt-dlp` mô phỏng client thiết bị thực tế (`android`, `web`) để vượt qua các thuật toán bóp tốc độ của YouTube.
+   - Tự động kiểm tra và cập nhật phiên bản mới nhất của thư viện `yt-dlp` khi khởi chạy.
+5. **Tự động tải & Cấu hình aria2c Portable (Chỉ dành cho Windows)**:
+   - Nếu máy tính Windows của bạn chưa cài `aria2c`, công cụ sẽ tự động tải phiên bản portable từ GitHub và tích hợp vào PATH chạy của tiến trình mà không yêu cầu cấu hình thủ công phức tạp!
 
 ---
 
-**Made with ❤️ by developers, for developers**
+## 🛠️ Hướng dẫn Cài đặt Môi trường
+
+### 1. Yêu cầu hệ thống
+* **Python**: Phiên bản `3.8` trở lên.
+* **FFmpeg**: Cần thiết để ghép tệp video + audio chất lượng cao và chuyển đổi định dạng MP3.
+
+### 2. Cài đặt FFmpeg
+* **Windows**:
+  1. Tải bản build mới nhất của FFmpeg từ [Gyan.dev](https://www.gyan.dev/ffmpeg/builds/).
+  2. Giải nén và thêm thư mục chứa tệp `ffmpeg.exe` (thường là thư mục `bin`) vào biến môi trường **PATH** của hệ thống.
+* **macOS**: Cài đặt qua Homebrew:
+  ```bash
+  brew install ffmpeg
+  ```
+* **Linux (Ubuntu/Debian)**:
+  ```bash
+  sudo apt update && sudo apt install ffmpeg -y
+  ```
+
+### 3. Cài đặt các thư viện Python
+Di chuyển vào thư mục dự án và cài đặt các thư viện phụ thuộc:
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 📖 Hướng dẫn Sử dụng
+
+### 🎮 Chạy bằng Giao diện Desktop GUI (Khuyên dùng)
+Khởi chạy giao diện đồ họa bằng câu lệnh:
+```bash
+python gui.py
+```
+Giao diện sẽ hiển thị đầy đủ:
+- Ô nhập link và nút **📂 Chọn file .txt** để tải hàng loạt.
+- Tùy chọn chất lượng: Video chất lượng tốt nhất, 1080p, 720p, chỉ lấy Audio MP3 320kbps.
+- Hộp chọn tốc độ kết nối aria2c và số luồng tải song song đồng thời.
+- Các nút tích hợp: Nhúng thumbnail, phụ đề, SponsorBlock cắt quảng cáo.
+- Thanh tiến trình trực quan chạy % và hộp nhật ký chi tiết trực tiếp.
+
+---
+
+### Chế độ CLI 1: Giao diện Menu Tương tác (Interactive CLI)
+Chỉ cần chạy lệnh sau kèm theo link video hoặc tệp `.txt`:
+```bash
+python ytdl.py https://www.youtube.com/watch?v=dQw4w9WgXcQ
+```
+Hệ thống sẽ hiển thị menu lựa chọn cấu hình tiếng Việt tương tác trên terminal.
+
+---
+
+### Chế độ CLI 2: Tải hàng loạt bằng File văn bản `.txt`
+Tạo một file `.txt` chứa danh sách các đường dẫn video YouTube (mỗi dòng một link, có thể xem file ví dụ mẫu [urls.txt.example](file:///c:/Users/admin12/Downloads/DL%20YTB/urls.txt.example)):
+```text
+https://www.youtube.com/watch?v=dQw4w9WgXcQ
+https://www.youtube.com/watch?v=9bZkp7q19f0
+```
+Sau đó chạy lệnh:
+```bash
+python ytdl.py urls.txt.example
+```
+Công cụ sẽ tự động phát hiện file danh sách và tải song song các video cùng lúc.
+
+---
+
+### Chế độ CLI 3: Chạy Không tương tác (Headless / Scripting)
+Nếu muốn sử dụng công cụ trong các script tự động hóa hoặc cron job không hỗ trợ nhập liệu, bạn có thể truyền các tham số sau:
+
+* **Tải nhanh không hỏi menu (`-y` hoặc `--non-interactive`)**:
+  ```bash
+  python ytdl.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -y
+  ```
+* **Chỉ lấy nhạc MP3 320kbps (`-a` hoặc `--audio`)**:
+  ```bash
+  python ytdl.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -y -a
+  ```
+* **Cấu hình chất lượng video cụ thể (`-f` hoặc `--format`)**:
+  - `1080p`: Tải tối đa độ phân giải 1080p (độ tương thích tốt, cân bằng).
+  - `720p`: Tải nhanh chất lượng 720p.
+  ```bash
+  python ytdl.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ" -y -f 1080p
+  ```
+* **Tải playlist với 5 luồng song song (`-p` hoặc `--concurrent`)**:
+  ```bash
+  python ytdl.py "LINK_PLAYLIST" -y -p 5
+  ```
+* **Cấu hình số luồng kết nối aria2c tải file (`-c` hoặc `--connections`)**:
+  ```bash
+  python ytdl.py "URL" -y -c 8
+  ```
+* **Tùy biến thư mục lưu file đầu ra (`-o` or `--output`)**:
+  ```bash
+  python ytdl.py "URL" -y -o "./my_videos"
+  ```
+* **Sử dụng Cookies xác thực (`-k` hoặc `--cookies`) để vượt lỗi DPAPI và Botcheck**:
+  Khi tải các video bị giới hạn độ tuổi hoặc gặp lỗi chặn bot (`Sign in to confirm you're not a bot`) hoặc lỗi giải mã trình duyệt trên Windows (`Failed to decrypt with DPAPI`):
+  1. Cài đặt tiện ích mở rộng xuất cookies trên trình duyệt (ví dụ: *Get cookies.txt LOCALLY* hoặc *Tab Cookies*).
+  2. Truy cập YouTube, đăng nhập tài khoản của bạn, sau đó xuất cookies định dạng Netscape ra một file (ví dụ: `cookies.txt`).
+  3. Sử dụng file cookies này để tải xuống:
+     - **Qua dòng lệnh (CLI)**:
+       ```bash
+       python ytdl.py "URL" -y --cookies cookies.txt
+       ```
+     - **Qua giao diện đồ họa (GUI)**:
+       Nhấp chọn nút **🍪 Chọn file cookies** để chọn tệp `cookies.txt` đã lưu, sau đó nhấn **🚀 TẢI XUỐNG** bình thường.

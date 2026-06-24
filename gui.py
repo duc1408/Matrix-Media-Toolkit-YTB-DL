@@ -618,10 +618,9 @@ class YtdlGUI:
         config.max_connections = 16
         config.concurrent_downloads = 3
 
-        # Tự động nạp cookies nếu có sẵn hoặc lấy từ Firefox
+        # Tự động nạp cookies nếu có sẵn
         config.cookies = self.detect_default_cookies()
-        if not config.cookies:
-            config.cookies_from_browser = "firefox"
+        config.cookies_from_browser = None
 
         # Bắt đầu chạy ngầm luồng tải xuống chính
         self.download_thread = threading.Thread(target=self.bg_download, args=(config, download_list), daemon=True)
